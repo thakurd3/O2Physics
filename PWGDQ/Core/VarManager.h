@@ -648,8 +648,8 @@ class VarManager : public TObject
   static void FillDileptonCharmHadron(DQ const& dilepton, HF const& charmHadron, H hfHelper, T& bdtScoreCharmHad, float* values = nullptr);
   template <typename C, typename A>
   static void FillQVectorFromGFW(C const& collision, A const& compA2, A const& compB2, A const& compC2, A const& compA3, A const& compB3, A const& compC3, float normA = 1.0, float normB = 1.0, float normC = 1.0, float* values = nullptr);
-  //static void FillEventPlaneABC(A const& EpA, A const& EpB, A const& EpC, float* values = nullptr);
-  
+  // static void FillEventPlaneABC(A const& EpA, A const& EpB, A const& EpC, float* values = nullptr);
+
   template <int pairType, typename T1, typename T2>
   static void FillPairVn(T1 const& t1, T2 const& t2, float* values = nullptr);
 
@@ -1059,7 +1059,6 @@ void VarManager::FillEvent(T const& event, float* values)
     values[kPsi2A] = getEventPlane(2, event.q2x0a(), event.q2y0a());
     values[kPsi2B] = getEventPlane(2, event.q2x0b(), event.q2y0b());
     values[kPsi2C] = getEventPlane(2, event.q2x0c(), event.q2y0c());
-
   }
 
   if constexpr ((fillMap & CollisionMC) > 0) {
@@ -2403,7 +2402,7 @@ void VarManager::FillQVectorFromGFW(C const& collision, A const& compA2, A const
 
   // TODO: provide different computations for R
   // Compute the R factor using the 2 sub-events technique for second and third harmonic
-  //Compute event planes
+  // Compute event planes
   auto Psi2B = getEventPlane(2, values[kQ2X0B], values[kQ2Y0B]);
   auto Psi3B = getEventPlane(3, values[kQ3X0B], values[kQ3Y0B]);
   auto Psi2C = getEventPlane(2, values[kQ2X0C], values[kQ2Y0C]);
@@ -2459,7 +2458,7 @@ void VarManager::FillPairVn(T1 const& t1, T2 const& t2, float* values)
   values[kU3Q3] = values[kQ3X0A] * std::cos(3 * v12.Phi()) + values[kQ3Y0A] * std::sin(3 * v12.Phi());
   values[kCos2DeltaPhi] = std::cos(2 * (v12.Phi() - getEventPlane(2, values[kQ2X0A], values[kQ2Y0A])));
   values[kCos3DeltaPhi] = std::cos(3 * (v12.Phi() - getEventPlane(3, values[kQ3X0A], values[kQ3Y0A])));
-  
+
   if (isnan(VarManager::fgValues[VarManager::kU2Q2]) == true) {
     values[kU2Q2] = -999.;
     values[kU3Q3] = -999.;
