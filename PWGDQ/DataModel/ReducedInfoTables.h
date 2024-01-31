@@ -500,8 +500,7 @@ DECLARE_SOA_TABLE(DileptonsFlow, "AOD", "RTDILEPTONFLOW", //!
                   reducedpair::Cos3DeltaPhi,
                   reducedpair::Psi2A,
                   reducedpair::Psi2B,
-                  reducedpair::Psi2C
-                  );
+                  reducedpair::Psi2C);
 
 // Dilepton collision information (joined with DileptonsExtra) allowing to connect different tables (cross PWGs)
 DECLARE_SOA_TABLE(DileptonsInfo, "AOD", "RTDILEPTONINFO",
@@ -534,8 +533,7 @@ DECLARE_SOA_TABLE(DimuonsAll, "AOD", "RTDIMUONALL", //!
                   reducedpair::Cos3DeltaPhi,
                   reducedpair::Psi2A,
                   reducedpair::Psi2B,
-                  reducedpair::Psi2C
-                  );
+                  reducedpair::Psi2C);
 
 using Dilepton = Dileptons::iterator;
 using DileptonExtra = DileptonsExtra::iterator;
