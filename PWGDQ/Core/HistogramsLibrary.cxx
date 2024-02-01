@@ -159,7 +159,7 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
       hm->AddHistogram(histClass, "Psi2B_CentFT0C", "", false, 90, 0.0, 90.0, VarManager::kCentFT0C, 100, -2.0, 2.0, VarManager::kPsi2B);
       hm->AddHistogram(histClass, "Psi2C_CentFT0C", "", false, 90, 0.0, 90.0, VarManager::kCentFT0C, 100, -2.0, 2.0, VarManager::kPsi2C);
     }
-     
+
     if (subGroupStr.Contains("res")) {
       hm->AddHistogram(histClass, "R2SP_CentV0M", "", true, 9, 0.0, 90.0, VarManager::kCentVZERO, 100, -1.0, 1.0, VarManager::kR2SP);
       hm->AddHistogram(histClass, "R3SP_CentV0M", "", true, 9, 0.0, 90.0, VarManager::kCentVZERO, 100, -1.0, 1.0, VarManager::kR3SP);
@@ -224,6 +224,9 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
         hm->AddHistogram(histClass, "ITSncls_CentFT0C", "Number of cluster in ITS", false, 8, -0.5, 7.5, VarManager::kITSncls, 20, 0.0, 100.0, VarManager::kCentFT0C);
         hm->AddHistogram(histClass, "ITSchi2_CentFT0C", "ITS chi2", false, 100, 0.0, 50.0, VarManager::kITSchi2, 20, 0.0, 100.0, VarManager::kCentFT0C);
         hm->AddHistogram(histClass, "ITSClusterMap_CentFT0C", "", false, 128, -0.5, 127.5, VarManager::kITSClusterMap, 20, 0.0, 100.0, VarManager::kCentFT0C);
+      }
+      if (subGroupStr.Contains("clssize")) {
+        hm->AddHistogram(histClass, "ITSclssize_p", "Mean ITS cluster size vs P", false, 200, 0.0, 10.0, VarManager::kP, 150, 0.0, 15., VarManager::kITSmeanClsSize);
       }
     }
     if (subGroupStr.Contains("itsvspt")) {
