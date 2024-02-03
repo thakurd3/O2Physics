@@ -267,7 +267,6 @@ namespace reducedmft
 DECLARE_SOA_INDEX_COLUMN(ReducedEvent, reducedevent);        //!
 DECLARE_SOA_COLUMN(FilteringFlags, filteringFlags, uint8_t); //!
 
-
 DECLARE_SOA_COLUMN(Pt, pt, float);   //!
 DECLARE_SOA_COLUMN(Eta, eta, float); //!
 DECLARE_SOA_COLUMN(Phi, phi, float); //!
