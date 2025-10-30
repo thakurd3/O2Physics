@@ -778,6 +778,8 @@ class VarManager : public TObject
     kPsi2B,
     kPsi2C,
     kCos2DeltaPhi,
+    kCos2DeltaPhiTPCPOS,
+    kCos2DeltaPhiTPCNEG,
     kCos2DeltaPhiMu1, // cos(phi - phi1) for muon1
     kCos2DeltaPhiMu2, ////cos(phi - phi2) for muon2
     kCos3DeltaPhi,
@@ -1862,10 +1864,14 @@ void VarManager::FillEvent(T const& event, float* values)
 
     EventPlaneHelper epHelper;
     float Psi2A = epHelper.GetEventPlane(values[kQ2X0A], values[kQ2Y0A], 2);
+    float Psi2APOS = epHelper.GetEventPlane(values[kQ2X0APOS], values[kQ2Y0APOS], 2);
+    float Psi2ANEG = epHelper.GetEventPlane(values[kQ2X0ANEG], values[kQ2Y0ANEG], 2);
     float Psi2B = epHelper.GetEventPlane(values[kQ2X0B], values[kQ2Y0B], 2);
     float Psi2C = epHelper.GetEventPlane(values[kQ2X0C], values[kQ2Y0C], 2);
 
     values[VarManager::kPsi2A] = Psi2A;
+    values[VarManager::kPsi2APOS] = Psi2APOS;
+    values[VarManager::kPsi2ANEG] = Psi2ANEG;
     values[VarManager::kPsi2B] = Psi2B;
     values[VarManager::kPsi2C] = Psi2C;
 
@@ -4621,11 +4627,15 @@ void VarManager::FillQVectorFromGFW(C const& /*collision*/, A const& compA11, A 
   // Compute the R factor using the 2 sub-events technique for second and third harmonic
   // Compute event planes
   auto Psi2A = getEventPlane(2, values[kQ2X0A], values[kQ2Y0A]);
+  auto Psi2APOS = getEventPlane(2, values[kQ2X0APOS], values[kQ2Y0APOS]);
+  auto Psi2ANEG = getEventPlane(2, values[kQ2X0ANEG], values[kQ2Y0ANEG]);
   auto Psi2B = getEventPlane(2, values[kQ2X0B], values[kQ2Y0B]);
   auto Psi3B = getEventPlane(3, values[kQ3X0B], values[kQ3Y0B]);
   auto Psi2C = getEventPlane(2, values[kQ2X0C], values[kQ2Y0C]);
   auto Psi3C = getEventPlane(3, values[kQ3X0C], values[kQ3Y0C]);
   values[kPsi2A] = Psi2A;
+  values[kPsi2APOS] = Psi2APOS;
+  values[kPsi2ANEG] = Psi2ANEG;
   values[kPsi2B] = Psi2B;
   values[kPsi2C] = Psi2C;
 
@@ -4885,12 +4895,16 @@ void VarManager::FillPairVn(T1 const& t1, T2 const& t2, float* values)
   values[kR3SP] = (values[kQ3X0B] * values[kQ3X0C] + values[kQ3Y0B] * values[kQ3Y0C]);
 
   float Psi2A = getEventPlane(2, values[kQ2X0A], values[kQ2Y0A]);
+  float Psi2APOS = getEventPlane(2, values[kQ2X0APOS], values[kQ2Y0APOS]);
+  float Psi2ANEG = getEventPlane(2, values[kQ2X0ANEG], values[kQ2Y0ANEG]);
   float Psi3A = getEventPlane(3, values[kQ3X0A], values[kQ3Y0A]);
   float Psi2B = getEventPlane(2, values[kQ2X0B], values[kQ2Y0B]);
   float Psi3B = getEventPlane(3, values[kQ3X0B], values[kQ3Y0B]);
   float Psi2C = getEventPlane(2, values[kQ2X0C], values[kQ2Y0C]);
   float Psi3C = getEventPlane(3, values[kQ3X0C], values[kQ3Y0C]);
   values[kCos2DeltaPhi] = TMath::Cos(2 * (v12.Phi() - Psi2A));
+  values[kCos2DeltaPhiTPCPOS] = TMath::Cos(2 * (v12.Phi() - Psi2APOS));
+  values[kCos2DeltaPhiTPCNEG] = TMath::Cos(2 * (v12.Phi() - Psi2ANEG));
   values[kCos3DeltaPhi] = TMath::Cos(3 * (v12.Phi() - Psi3A));
   values[kR2EP_AB] = TMath::Cos(2 * (Psi2A - Psi2B));
   values[kR2EP_AC] = TMath::Cos(2 * (Psi2A - Psi2C));
