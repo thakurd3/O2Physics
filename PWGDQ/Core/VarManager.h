@@ -695,6 +695,8 @@ class VarManager : public TObject
     kWV2SP,
     kWV2EP,
     kU2Q2,
+    kU2Q2TPCPOS,
+    kU2Q2TPCNEG,
     kU3Q3,
     kQ42XA,
     kQ42YA,
@@ -4888,6 +4890,8 @@ void VarManager::FillPairVn(T1 const& t1, T2 const& t2, float* values)
   // Compute the scalar product UQ using Q-vector from A, for second and third harmonic
   // Dilepton vn could be accessible after dividing this product with the R factor
   values[kU2Q2] = values[kQ2X0A] * TMath::Cos(2 * v12.Phi()) + values[kQ2Y0A] * TMath::Sin(2 * v12.Phi());
+  values[kU2Q2TPCPOS] = values[kQ2X0APOS] * TMath::Cos(2 * v12.Phi()) + values[kQ2Y0APOS] * TMath::Sin(2 * v12.Phi());
+  values[kU2Q2TPCNEG] = values[kQ2X0ANEG] * TMath::Cos(2 * v12.Phi()) + values[kQ2Y0ANEG] * TMath::Sin(2 * v12.Phi());
   values[kU3Q3] = values[kQ3X0A] * TMath::Cos(3 * v12.Phi()) + values[kQ3Y0A] * TMath::Sin(3 * v12.Phi());
   values[kR2SP_AB] = (values[kQ2X0A] * values[kQ2X0B] + values[kQ2Y0A] * values[kQ2Y0B]);
   values[kR2SP_AC] = (values[kQ2X0A] * values[kQ2X0C] + values[kQ2Y0A] * values[kQ2Y0C]);
@@ -4924,6 +4928,15 @@ void VarManager::FillPairVn(T1 const& t1, T2 const& t2, float* values)
     values[kR2SP_AC] = -999.;
     values[kR2SP_BC] = -999.;
   }
+ 
+ if (std::isnan(VarManager::fgValues[VarManager::kU2Q2TPCPOS]) == true) {
+    values[kU2Q2TPCPOS] = -999.;
+  }
+ 
+ if (std::isnan(VarManager::fgValues[VarManager::kU2Q2TPCNEG]) == true) {
+    values[kU2Q2TPCNEG] = -999.;
+  }
+ 
   if (std::isnan(VarManager::fgValues[VarManager::kU3Q3]) == true) {
     values[kU3Q3] = -999.;
     values[kR3SP] = -999.;
@@ -4934,6 +4947,15 @@ void VarManager::FillPairVn(T1 const& t1, T2 const& t2, float* values)
     values[kR2EP_AC] = -999.;
     values[kR2EP_BC] = -999.;
   }
+
+ if (std::isnan(VarManager::fgValues[VarManager::kCos2DeltaPhiTPCPOS]) == true) {
+    values[kCos2DeltaPhiTPCPOS] = -999.;
+  }
+
+ if (std::isnan(VarManager::fgValues[VarManager::kCos2DeltaPhiTPCNEG]) == true) {
+    values[kCos2DeltaPhiTPCNEG] = -999.;
+  }
+ 
   if (std::isnan(VarManager::fgValues[VarManager::kCos3DeltaPhi]) == true) {
     values[kCos3DeltaPhi] = -999.;
     values[kR3EP] = -999.;
