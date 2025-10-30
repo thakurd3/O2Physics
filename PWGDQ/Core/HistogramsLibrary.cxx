@@ -1523,6 +1523,23 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
         hm->AddHistogram(histClass, "Mass_Pt_centrFT0C_V2", "", 6, varV2, bins, minBins, maxBins, 0, -1, kTRUE);
         // hm->AddHistogram(histClass, "Mass_Pt_centrFT0C_V3", "", 6, varV3, bins, minBins, maxBins, 0, -1, kTRUE); // removed temporarily
       }
+
+    if (subGroupStr.Contains("flow-dimuon-tpcpos")) {
+        int varV2[6] = {VarManager::kMass, VarManager::kPt, VarManager::kRap, VarManager::kCentFT0C, VarManager::kU2Q2, VarManager::kCos2DeltaPhiTPCPOS};
+        int bins[6] = {250, 60, 6, 18, 200, 40};
+        double minBins[6] = {0.0, 0.0, 2.5, 0.0, -10.0, -2.0};
+        double maxBins[6] = {5.0, 30.0, 4.0, 90.0, 10.0, 2.0};
+        hm->AddHistogram(histClass, "Mass_Pt_centrFT0C_V2TPCPOS", "", 6, varV2, bins, minBins, maxBins, 0, -1, kTRUE);  
+      }
+
+      if (subGroupStr.Contains("flow-dimuon-tpcneg")) {
+        int varV2[6] = {VarManager::kMass, VarManager::kPt, VarManager::kRap, VarManager::kCentFT0C, VarManager::kU2Q2, VarManager::kCos2DeltaPhiTPCNEG};
+        int bins[6] = {250, 60, 6, 18, 200, 40};
+        double minBins[6] = {0.0, 0.0, 2.5, 0.0, -10.0, -2.0};
+        double maxBins[6] = {5.0, 30.0, 4.0, 90.0, 10.0, 2.0};
+        hm->AddHistogram(histClass, "Mass_Pt_centrFT0C_V2TPCNEG", "", 6, varV2, bins, minBins, maxBins, 0, -1, kTRUE);  
+      }
+  
       if (subGroupStr.Contains("flow-ccdb")) {
         double MassBinEdges[251]; // 0-5GeV/c2
         for (int i = 0; i < 251; i++) {
